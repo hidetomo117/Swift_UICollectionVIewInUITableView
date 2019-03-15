@@ -486,7 +486,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9LY3B67W33;
-				INFOPLIST_FILE = UICollectionViewInUITableView/Info.plist;
+				INFOPLIST_FILE = UICollectionViewInUITableView/Other/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -504,7 +504,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9LY3B67W33;
-				INFOPLIST_FILE = UICollectionViewInUITableView/Info.plist;
+				INFOPLIST_FILE = UICollectionViewInUITableView/Other/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
