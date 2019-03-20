@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// 表示するセルのパターンを判別するEnum
 enum CellPattern: Int {
     case pattern1
     case pattern2

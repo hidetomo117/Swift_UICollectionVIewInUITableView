@@ -19,7 +19,8 @@ class MainModel: NSObject {
                        "Pattern 7",
                        "Pattern 8",
                        "Pattern 9"]
-    
+
+    /// TsbleViewに表示する項目を返却
     func getPatternList() -> Array<String> {
         return patternList
     }

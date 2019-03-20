@@ -8,17 +8,23 @@
 
 import UIKit
 
+
+/// DetailViewController初期値設定用プロトコル
 protocol DetailViewControllerProtocol {
-    func setSelectedIndex(with cellPattern: CellPattern)
+    func setSelectedCellPattern(with cellPattern: CellPattern)
 }
 
 final class DetailViewController: UIViewController {
 
+    // MARK: - Property
+    
     @IBOutlet weak var tableView: UITableView!
     
     let tableViewCellNibName = "DetailTableViewCell"
     let tableViewCellIdentifier = "DetailTableViewCell"
     var selectedCellPattern = CellPattern(rawValue: 0)
+    
+    // MARK: - View life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,29 +33,37 @@ final class DetailViewController: UIViewController {
     }
 }
 
+// MARK: - Private method
+
 extension DetailViewController {
     
+    /// 初期処理
     private func setup() {
         registerTableViewCell()
         setupTableView()
         setupProtocol()
     }
     
+    /// UITableVIewCellの登録
     private func registerTableViewCell() {
         let nib = UINib.init(nibName: tableViewCellNibName, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: tableViewCellIdentifier)
     }
     
+    /// tableViewの初期処理
     private func setupTableView() {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
     }
     
+    /// Protocolの設定
     private func setupProtocol() {
         tableView.dataSource = self
         tableView.delegate = self
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension DetailViewController: UITableViewDataSource {
     
@@ -62,10 +76,10 @@ extension DetailViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: tableViewCellIdentifier, for: indexPath) as? DetailTableViewCell else {
             fatalError()
         }
-        
+ 
+        // 参考: https://mobikul.com/manage-collection-view-height-inside-the-table-view-cell-using-swift-4/
         cell.frame = tableView.bounds
         cell.layoutIfNeeded()
-        
         cell.collectionView.reloadData()
         cell.collectionViewHeight.constant = cell.collectionView.collectionViewLayout.collectionViewContentSize.height
         
@@ -77,15 +91,16 @@ extension DetailViewController: UITableViewDataSource {
     }
 }
 
-// https://mobikul.com/manage-collection-view-height-inside-the-table-view-cell-using-swift-4/
+// MARK: - UITableViewDelegate
 
 extension DetailViewController: UITableViewDelegate {
-    
 }
+
+// MARK: - DetailViewControllerProtocol
 
 extension DetailViewController: DetailViewControllerProtocol {
     
-    func setSelectedIndex(with cellPattern: CellPattern) {
+    func setSelectedCellPattern(with cellPattern: CellPattern) {
         selectedCellPattern = cellPattern
     }
 }

@@ -9,7 +9,9 @@
 import UIKit
 
 class DetailTableViewCell: UITableViewCell {
-        
+    
+    // MARK: - Property
+    
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewHeight: NSLayoutConstraint!
     
@@ -26,6 +28,37 @@ class DetailTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 }
+
+// MARK: - Public method
+
+extension DetailTableViewCell {
+    
+    func dispLay(withCellPattern cellPattern: CellPattern) {
+    
+        switch cellPattern {
+        case .pattern1:
+            break
+        case .pattern2:
+            break
+        case .pattern3:
+            break
+        case .pattern4:
+            break
+        case .pattern5:
+            break
+        case .pattern6:
+            break
+        case .pattern7:
+            break
+        case .pattern8:
+            break
+        case .pattern9:
+            break
+        }
+    }
+}
+
+// MARK: - Private method
 
 extension DetailTableViewCell {
     
