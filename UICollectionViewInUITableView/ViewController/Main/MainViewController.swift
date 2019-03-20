@@ -12,30 +12,29 @@ final class MainViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
+    let tableViewCellNibName = "MainTableViewCell"
+    let tableViewCellIdentifier = "MainTableViewCell"
+    let detailViewControllerStoryboardName = "Detail"
+    let detailViewControllerIdentifier = "DetailViewController"
+    let model = MainModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setup()
     }
-
 }
 
 extension MainViewController {
     
     private func setup() {
         registerTableViewCell()
-        setupTableView()
         setupProtocol()
     }
     
     private func registerTableViewCell() {
-        let nib = UINib.init(nibName: "CustomTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "CustomTableViewCell")
-    }
-    
-    private func setupTableView() {
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
+        let nib = UINib.init(nibName: tableViewCellNibName, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: tableViewCellIdentifier)
     }
     
     private func setupProtocol() {
@@ -47,22 +46,26 @@ extension MainViewController {
 extension MainViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return model.getPatternList().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath)
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: tableViewCellIdentifier, for: indexPath) as? MainTableViewCell else {
+            fatalError()
+        }
+
+        cell.display(with: model.getPatternList()[indexPath.row])
+
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
     }
 }
 
-// 932号車: 舞子のなんとかセンターで降りる
-// https://mobikul.com/manage-collection-view-height-inside-the-table-view-cell-using-swift-4/
-
 extension MainViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: detailViewControllerStoryboardName, bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: detailViewControllerIdentifier)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
