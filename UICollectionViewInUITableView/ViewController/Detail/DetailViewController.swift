@@ -8,12 +8,17 @@
 
 import UIKit
 
+protocol DetailViewControllerProtocol {
+    func setSelectedIndex(with cellPattern: CellPattern)
+}
+
 final class DetailViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
     let tableViewCellNibName = "DetailTableViewCell"
     let tableViewCellIdentifier = "DetailTableViewCell"
+    var selectedCellPattern = CellPattern(rawValue: 0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +58,17 @@ extension DetailViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: tableViewCellIdentifier, for: indexPath)
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: tableViewCellIdentifier, for: indexPath) as? DetailTableViewCell else {
+            fatalError()
+        }
+        
+        cell.frame = tableView.bounds
+        cell.layoutIfNeeded()
+        
+        cell.collectionView.reloadData()
+        cell.collectionViewHeight.constant = cell.collectionView.collectionViewLayout.collectionViewContentSize.height
+        
         return cell
     }
     
@@ -66,4 +81,11 @@ extension DetailViewController: UITableViewDataSource {
 
 extension DetailViewController: UITableViewDelegate {
     
+}
+
+extension DetailViewController: DetailViewControllerProtocol {
+    
+    func setSelectedIndex(with cellPattern: CellPattern) {
+        selectedCellPattern = cellPattern
+    }
 }

@@ -19,15 +19,33 @@ class DetailTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        collectionViewHeight.constant = 20
-        collectionView.register(UINib(nibName: collectionViewNibName, bundle: nil),
-                                      forCellWithReuseIdentifier: collectionViewIdentifier)
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        setup()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+}
+
+extension DetailTableViewCell {
+    
+    private func setup() {
+        registerCollectionViewCell()
+        setupProtocol()
+        setupProperty()
+    }
+    
+    private func registerCollectionViewCell() {
+        collectionView.register(UINib(nibName: collectionViewNibName, bundle: nil), forCellWithReuseIdentifier: collectionViewIdentifier)
+    }
+    
+    private func setupProtocol() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
+    
+    private func setupProperty() {
+        collectionViewHeight.constant = 20
     }
 }
 
@@ -36,7 +54,7 @@ class DetailTableViewCell: UITableViewCell {
 extension DetailTableViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -55,6 +73,8 @@ extension DetailTableViewCell: UICollectionViewDataSource {
 
 extension DetailTableViewCell: UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    }
 }
 
 // MARK: - UICollectionViewDataSource

@@ -23,6 +23,7 @@ final class MainViewController: UIViewController {
         
         setup()
     }
+    
 }
 
 extension MainViewController {
@@ -64,8 +65,14 @@ extension MainViewController: UITableViewDataSource {
 extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        guard let selectedCellPattern = CellPattern(rawValue: indexPath.row) else {
+            fatalError()
+        }
+
         let storyboard = UIStoryboard(name: detailViewControllerStoryboardName, bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: detailViewControllerIdentifier)
+        let vc = storyboard.instantiateViewController(withIdentifier: detailViewControllerIdentifier) as! DetailViewController
+        vc.setSelectedIndex(with: selectedCellPattern)
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
