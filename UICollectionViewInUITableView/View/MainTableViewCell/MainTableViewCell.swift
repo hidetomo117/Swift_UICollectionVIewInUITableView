@@ -20,6 +20,7 @@ class MainTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    /// セルに表示する文字を設定
     func display(with title: String) {
         label.text = title
     }

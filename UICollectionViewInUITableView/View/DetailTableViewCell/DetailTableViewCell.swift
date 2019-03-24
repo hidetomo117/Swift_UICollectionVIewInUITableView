@@ -33,6 +33,7 @@ class DetailTableViewCell: UITableViewCell {
 
 extension DetailTableViewCell {
     
+    /// CellPatternに応じたセルを生成
     func dispLay(withCellPattern cellPattern: CellPattern) {
     
         switch cellPattern {
@@ -62,21 +63,25 @@ extension DetailTableViewCell {
 
 extension DetailTableViewCell {
     
+    /// 初期処理
     private func setup() {
         registerCollectionViewCell()
         setupProtocol()
         setupProperty()
     }
     
+    /// UICollectionViewの登録
     private func registerCollectionViewCell() {
         collectionView.register(UINib(nibName: collectionViewNibName, bundle: nil), forCellWithReuseIdentifier: collectionViewIdentifier)
     }
     
+    /// Protocolの設定
     private func setupProtocol() {
         collectionView.delegate = self
         collectionView.dataSource = self
     }
     
+    /// Propertyの設定
     private func setupProperty() {
         collectionViewHeight.constant = 20
     }
